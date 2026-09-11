@@ -11,23 +11,20 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Cache PlatformIO
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cache/platformio
-            .pio
-          key: ${{ hashFiles('**/platformio.ini') }}-${{ runner.os }}
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Run PlatformIO Build
-        uses: platformio/action-github-action@v2
+      - name: Install PlatformIO
+        run: |
+          python -m pip install --upgrade pip
+          pip install platformio
 
-      - name: Upload Compiled Firmware
+      - name: Build Project
+        run: pio run
+
+      - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: crowpanel-firmware
