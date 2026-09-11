@@ -17,7 +17,7 @@ jobs:
           path: |
             ~/.cache/platformio
             .pio
-          key: ${{ hashFiles('**/platformio.ini') }}-${{ runner.os }}-${{ festival }}
+          key: ${{ hashFiles('**/platformio.ini') }}-${{ runner.os }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
